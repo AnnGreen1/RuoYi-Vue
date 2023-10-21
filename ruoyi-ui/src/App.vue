@@ -11,6 +11,10 @@ import ThemePicker from "@/components/ThemePicker";
 export default {
   name: "App",
   components: { ThemePicker },
+  /**
+   * @author: anngreens 
+   * vue-meta 依赖，用于管理每个页面的 title 、 meta 等信息
+   */ 
     metaInfo() {
         return {
             title: this.$store.state.settings.dynamicTitle && this.$store.state.settings.title,

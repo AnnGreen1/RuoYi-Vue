@@ -1,5 +1,8 @@
 <template>
   <div style="padding: 0 15px;" @click="toggleClick">
+    <!-- @authro: anngreens
+    这是一张矢量图
+    -->
     <svg
       :class="{'is-active':isActive}"
       class="hamburger"
@@ -38,6 +41,9 @@ export default {
   height: 20px;
 }
 
+/**
+ * @author: .is-active 把 svg 旋转 180 度
+ */
 .hamburger.is-active {
   transform: rotate(180deg);
 }

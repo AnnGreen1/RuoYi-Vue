@@ -1,3 +1,7 @@
+/**
+ * @author: anngreens
+ * jsencrypt 就是一个基于 rsa 加解密的 js 库
+ */
 import JSEncrypt from 'jsencrypt/bin/jsencrypt.min'
 
 // 密钥对生成 http://web.chacuo.net/netrsakeypair

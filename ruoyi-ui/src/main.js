@@ -61,6 +61,11 @@ Vue.component('ImagePreview', ImagePreview)
 Vue.use(directive)
 Vue.use(plugins)
 Vue.use(VueMeta)
+
+/**
+ * @author: anngreens
+ * 这是一个函数
+ */
 DictData.install()
 
 /**
@@ -72,6 +77,12 @@ DictData.install()
  * please remove it before going online! ! !
  */
 
+
+/**
+ * @author: anngreens
+ * 在引入 Element 时，可以传入一个全局配置对象。该对象目前支持 size 与 zIndex 字段。
+ * size 用于改变组件的默认尺寸，zIndex 设置弹框的初始 z-index（默认值：2000）。
+ */
 Vue.use(Element, {
   size: Cookies.get('size') || 'medium' // set element-ui default size
 })

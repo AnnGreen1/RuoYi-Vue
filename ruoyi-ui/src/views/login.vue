@@ -23,6 +23,9 @@
           <svg-icon slot="prefix" icon-class="password" class="el-input__icon input-icon" />
         </el-input>
       </el-form-item>
+      <!-- @author: anngreens
+      使用验证码与否使用过 v-if 实现的 
+      -->
       <el-form-item prop="code" v-if="captchaEnabled">
         <el-input
           v-model="loginForm.code"
@@ -75,8 +78,8 @@ export default {
         username: "admin",
         password: "admin123",
         rememberMe: false,
-        code: "",
-        uuid: ""
+        code: "", // @author: anngreens 验证码
+        uuid: ""  // @author: anngreens 这个 uuid 应该是后端用来判断验证码是否正确使用的，使用 uuid 来区分之前返回给前端的验证码图片正确内容是什么，从而使用正确内容去验证用户输入的验证码
       },
       loginRules: {
         username: [
@@ -109,6 +112,11 @@ export default {
   },
   methods: {
     getCode() {
+      /**
+       * @author: anngreens
+       * 获取验证码图片接口，res.img 是图片的 base64 编码
+       * 注意后端还返回了一个 uuid
+       */
       getCodeImg().then(res => {
         this.captchaEnabled = res.captchaEnabled === undefined ? true : res.captchaEnabled;
         if (this.captchaEnabled) {
@@ -117,6 +125,10 @@ export default {
         }
       });
     },
+    /**
+     * @author: anngreens
+     * 看一下 Cookie里有没有用户信息
+     */
     getCookie() {
       const username = Cookies.get("username");
       const password = Cookies.get("password");
@@ -131,6 +143,10 @@ export default {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           this.loading = true;
+          /**
+           * @author: anngreens
+           * “记住密码”功能使通过 Cookie 保存的，encrypt() 函数使用基于 rsa 加解密的库 jsencrypt 把密码进行加密了
+           */
           if (this.loginForm.rememberMe) {
             Cookies.set("username", this.loginForm.username, { expires: 30 });
             Cookies.set("password", encrypt(this.loginForm.password), { expires: 30 });
@@ -140,6 +156,10 @@ export default {
             Cookies.remove("password");
             Cookies.remove('rememberMe');
           }
+          /**
+           * @author: anngreens
+           * Login 这个 action 在 @/store/modules/user.js 中，调用登录接口后，验证成功，把接口返回的 token 存在 vuex 的 token 里，跳转首页。（ps: push()还可以使用 catch() ？）
+           */
           this.$store.dispatch("Login", this.loginForm).then(() => {
             this.$router.push({ path: this.redirect || "/" }).catch(()=>{});
           }).catch(() => {

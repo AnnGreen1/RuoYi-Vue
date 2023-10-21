@@ -12,6 +12,10 @@
       <template slot="title">
         <item v-if="item.meta" :icon="item.meta && item.meta.icon" :title="item.meta.title" />
       </template>
+      <!-- @author: anngreens
+      组件的递归调用，在 sidebar-item 内部使用该组件本身，不需要注册（显然易见），且该组件必须具有 name
+      还有就是递归是需要终止条件的，siderbar-item 组件的递归调用的终止条件就是 v-if 为 true 的时候，即没有子菜单
+      -->
       <sidebar-item
         v-for="child in item.children"
         :key="child.path"
@@ -26,6 +30,10 @@
 
 <script>
 import path from 'path'
+/**
+ * @author: anngreens
+ * isExternal() 判断是是否为外链（通过判断是否为 https/mailto/tel 开头实现）
+ */
 import { isExternal } from '@/utils/validate'
 import Item from './Item'
 import AppLink from './Link'
@@ -51,6 +59,10 @@ export default {
     }
   },
   data() {
+    /**
+     * @author: anngreens
+     * 把一个数据写在 return {} 外部的写法
+     */
     this.onlyOneChild = null
     return {}
   },
@@ -91,6 +103,10 @@ export default {
       }
       if (routeQuery) {
         let query = JSON.parse(routeQuery);
+        /**
+         * @author: anngreens
+         * path.resolve() 是 path 模块的一个函数，什么作用？
+         */
         return { path: path.resolve(this.basePath, routePath), query: query }
       }
       return path.resolve(this.basePath, routePath)

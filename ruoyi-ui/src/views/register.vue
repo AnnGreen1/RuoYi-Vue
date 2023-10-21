@@ -73,6 +73,10 @@ export default {
   name: "Register",
   data() {
     const equalToPassword = (rule, value, callback) => {
+      /**
+       * @author: anngreens
+       * !== 运算符什么情况？感觉从来没用过。
+       */
       if (this.registerForm.password !== value) {
         callback(new Error("两次输入的密码不一致"));
       } else {
@@ -97,6 +101,10 @@ export default {
           { required: true, trigger: "blur", message: "请输入您的密码" },
           { min: 5, max: 20, message: '用户密码长度必须介于 5 和 20 之间', trigger: 'blur' }
         ],
+        /**
+         * @author: anngreens
+         * 前端进行了密码二次输入的校验
+         */
         confirmPassword: [
           { required: true, trigger: "blur", message: "请再次输入您的密码" },
           { required: true, validator: equalToPassword, trigger: "blur" }

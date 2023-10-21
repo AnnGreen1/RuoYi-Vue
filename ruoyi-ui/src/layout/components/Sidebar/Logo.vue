@@ -1,11 +1,23 @@
 <template>
   <div class="sidebar-logo-container" :class="{'collapse':collapse}" :style="{ backgroundColor: sideTheme === 'theme-dark' ? variables.menuBackground : variables.menuLightBackground }">
     <transition name="sidebarLogoFade">
+      <!-- @author: anngreens
+      折叠 Sidebar
+      -->
       <router-link v-if="collapse" key="collapse" class="sidebar-logo-link" to="/">
+        <!-- @author: anngreens
+        折叠 Sidebar 时，根据有无 logo，进行 logo 和文字标题二选一（但是这个 logo 必须有，否则 import logo 图片直接保存找不到，直接编译失败）
+        -->
         <img v-if="logo" :src="logo" class="sidebar-logo" />
         <h1 v-else class="sidebar-title" :style="{ color: sideTheme === 'theme-dark' ? variables.logoTitleColor : variables.logoLightTitleColor }">{{ title }} </h1>
       </router-link>
+      <!-- @author: anngreens
+      展开 Sidebar
+      -->
       <router-link v-else key="expand" class="sidebar-logo-link" to="/">
+      <!-- @author: anngreens
+        展开 Sidebar 时，logo 有则展示，无则隐藏，文字标题持续展示
+        -->
         <img v-if="logo" :src="logo" class="sidebar-logo" />
         <h1 class="sidebar-title" :style="{ color: sideTheme === 'theme-dark' ? variables.logoTitleColor : variables.logoLightTitleColor }">{{ title }} </h1>
       </router-link>

@@ -37,6 +37,10 @@ const user = {
       const uuid = userInfo.uuid
       return new Promise((resolve, reject) => {
         login(username, password, code, uuid).then(res => {
+           /**
+           * @author: anngreens
+           * 登录验证成功，使用 js-cookie 保存 token ，用 vuex 保存 token ，然后 resolve()
+           */
           setToken(res.token)
           commit('SET_TOKEN', res.token)
           resolve()

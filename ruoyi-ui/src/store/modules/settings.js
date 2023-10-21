@@ -1,5 +1,9 @@
 import defaultSettings from '@/settings'
 
+/**
+ * @author: anngreens
+ * defaultSettings 是一个对象，对象可以解构赋值
+ */
 const { sideTheme, showSettings, topNav, tagsView, fixedHeader, sidebarLogo, dynamicTitle } = defaultSettings
 
 const storageSetting = JSON.parse(localStorage.getItem('layout-setting')) || ''

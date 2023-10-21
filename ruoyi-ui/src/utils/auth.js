@@ -1,3 +1,7 @@
+/**
+ * @author: anngreens
+ * 一个操作 Cookie 的依赖
+ */
 import Cookies from 'js-cookie'
 
 const TokenKey = 'Admin-Token'

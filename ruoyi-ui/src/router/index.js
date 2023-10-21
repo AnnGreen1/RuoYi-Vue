@@ -43,6 +43,10 @@ export const constantRoutes = [
   },
   {
     path: '/login',
+    /**
+     * @author: anngreens
+     * import() 里写的路径不用写到 .vue 也可以？
+     */
     component: () => import('@/views/login'),
     hidden: true
   },
@@ -61,6 +65,11 @@ export const constantRoutes = [
     component: () => import('@/views/error/401'),
     hidden: true
   },
+  /**
+   * @author: anngreens
+   * 路由路径可以为空串？'' 是默认路由，/ 是根路径
+   * 这是一个嵌套路由，外层为 Layout，内层为 @/views/index
+   */
   {
     path: '',
     component: Layout,

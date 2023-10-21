@@ -1,5 +1,11 @@
 <template>
+  <!-- @author: anngreens
+  '--current-color' 是什么？有这个属性吗？能这么绑定码？
+  -->
   <div :class="classObj" class="app-wrapper" :style="{'--current-color': theme}">
+    <!-- @author: anngreens
+    drawer-bg 是一个灰色背景层
+    -->
     <div v-if="device==='mobile'&&sidebar.opened" class="drawer-bg" @click="handleClickOutside"/>
     <sidebar v-if="!sidebar.hide" class="sidebar-container"/>
     <div :class="{hasTagsView:needTagsView,sidebarHide:sidebar.hide}" class="main-container">
@@ -34,8 +40,11 @@ export default {
   },
   mixins: [ResizeMixin],
   computed: {
+    /**
+     * @author: mapState() 怎么感觉从来没听说过？
+     */
     ...mapState({
-      theme: state => state.settings.theme,
+      theme: state => state.settings.theme, // 一个十六进制颜色值
       sideTheme: state => state.settings.sideTheme,
       sidebar: state => state.app.sidebar,
       device: state => state.app.device,
@@ -56,6 +65,12 @@ export default {
   },
   methods: {
     handleClickOutside() {
+      /**
+       * @author: anngreens
+       * @file: @/store/modules/app.js line 56 - 62
+       * 'app/closeSideBar' 是要分发 app 模块下名为 closeSideBar 的 action
+       * 
+       */
       this.$store.dispatch('app/closeSideBar', { withoutAnimation: false })
     }
   }
