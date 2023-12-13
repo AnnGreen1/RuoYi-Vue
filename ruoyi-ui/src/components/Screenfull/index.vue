@@ -5,6 +5,11 @@
 </template>
 
 <script>
+/**
+ * @author: anngreens
+ * screenfull 是一个依赖
+ * https://www.npmjs.com/package/screenfull
+ */
 import screenfull from 'screenfull'
 
 export default {

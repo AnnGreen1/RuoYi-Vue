@@ -7,7 +7,7 @@ const user = {
     name: '',
     avatar: '',
     roles: [],
-    permissions: []
+    permissions: [] // @author: anngreens 权限标识数组
   },
 
   mutations: {

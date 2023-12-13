@@ -2,9 +2,9 @@ import Cookies from 'js-cookie'
 
 const state = {
   sidebar: {
-    opened: Cookies.get('sidebarStatus') ? !!+Cookies.get('sidebarStatus') : true,
+    opened: Cookies.get('sidebarStatus') ? !!+Cookies.get('sidebarStatus') : true, // @author: anngreens 控制要不要展开
     withoutAnimation: false,
-    hide: false
+    hide: false // @author: anngreens 控制要不要展示
   },
   device: 'desktop',
   size: Cookies.get('size') || 'medium'

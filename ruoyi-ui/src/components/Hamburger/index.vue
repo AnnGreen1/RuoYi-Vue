@@ -1,6 +1,6 @@
 <template>
   <div style="padding: 0 15px;" @click="toggleClick">
-    <!-- @authro: anngreens
+    <!-- @author: anngreens
     这是一张矢量图
     -->
     <svg

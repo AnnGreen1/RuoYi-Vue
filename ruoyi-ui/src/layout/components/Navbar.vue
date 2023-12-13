@@ -1,7 +1,13 @@
 <template>
   <div class="navbar">
+    <!-- @author:anngreens
+    hamburger 组件展示的就是一张 svg 矢量图
+    sidebar.opened 控制要不要展开
+    -->
     <hamburger id="hamburger-container" :is-active="sidebar.opened" class="hamburger-container" @toggleClick="toggleSideBar" />
-
+    <!-- @author:anngreens
+    topNav 控制要不要展示 top-nav ，top-nav 和 breadcrumb 只能展示一个
+    -->
     <breadcrumb id="breadcrumb-container" class="breadcrumb-container" v-if="!topNav"/>
     <top-nav id="topmenu-container" class="topmenu-container" v-if="topNav"/>
 
