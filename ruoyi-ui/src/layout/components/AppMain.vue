@@ -1,10 +1,16 @@
 <template>
   <section class="app-main">
+    <!-- @author: anngreens
+    注意几个内置组件同时使用的方法
+    -->
     <transition name="fade-transform" mode="out-in">
       <keep-alive :include="cachedViews">
         <router-view v-if="!$route.meta.link" :key="key" />
       </keep-alive>
     </transition>
+    <!-- @author: anngreens
+    这是什么？
+    -->
     <iframe-toggle />
   </section>
 </template>

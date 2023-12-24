@@ -32,6 +32,13 @@
       </template>
 
       <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="click">
+        <!--
+          @author: anngreens
+          @link: https://element.eleme.io/#/zh-CN/component/dropdown#dropdown-slots
+          el-dropdown 有两个插槽
+          默认插槽：触发下拉列表显示的元素。 注意： 必须是一个元素或者或者组件
+          dropdown插槽：下拉列表，通常是 <el-dropdown-menu> 组件
+          -->
         <div class="avatar-wrapper">
           <img :src="avatar" class="user-avatar">
           <i class="el-icon-caret-bottom" />
@@ -40,6 +47,9 @@
           <router-link to="/user/profile">
             <el-dropdown-item>个人中心</el-dropdown-item>
           </router-link>
+          <!-- @author: anngreens
+          <setting /> 组件在 @/layout/index.vue 中使用
+          -->
           <el-dropdown-item @click.native="setting = true">
             <span>布局设置</span>
           </el-dropdown-item>
@@ -107,6 +117,9 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
+        /**
+         * LogOut 是一个 action ，在 @/store/modules/user.js 中
+         */
         this.$store.dispatch('LogOut').then(() => {
           location.href = '/index';
         })

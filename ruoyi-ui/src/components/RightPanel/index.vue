@@ -33,6 +33,7 @@ export default {
   },
   watch: {
     show(value) {
+      // 如果打开了布局设置 且 点击这招需要关闭
       if (value && !this.clickNotClose) {
         this.addEventClick()
       }
@@ -47,9 +48,18 @@ export default {
   },
   methods: {
     addEventClick() {
+      /**
+       * @author: anngreens
+       * 给 window 添加 click 事件监听器，事件处理函数为 this.closeSidebar()
+       */
       window.addEventListener('click', this.closeSidebar)
     },
     closeSidebar(evt) {
+      /**
+       * @author: anngreens
+       * Element.closest() 方法用来获取：匹配特定选择器且离当前元素最近的祖先元素（也可以是当前元素本身）。如果匹配不到，则返回 null。
+       * 其实这个 el-drawer__body 一直都在，不论 visible 是 true 或 false
+       */
       const parent = evt.target.closest('.el-drawer__body')
       if (!parent) {
         this.show = false

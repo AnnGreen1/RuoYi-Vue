@@ -1,6 +1,6 @@
 <template>
   <!-- @author: anngreens
-  '--current-color' 是什么？有这个属性吗？能这么绑定码？
+  '--current-color' 是什么？有这个属性吗？能这么绑定吗？是CSS自定义属性的用法
   -->
   <div :class="classObj" class="app-wrapper" :style="{'--current-color': theme}">
     <!-- @author: anngreens

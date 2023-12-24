@@ -1,4 +1,7 @@
 <template>
+  <!-- @author: anngreens
+  theme 默认是 hex 格式，但是 el-color-picker 有一个 color-format 属性可以设置值是什么格式
+  -->
   <el-color-picker
     v-model="theme"
     :predefine="['#409EFF', '#1890ff', '#304156','#212121','#11a983', '#13c2c2', '#6959CD', '#f5222d', ]"
@@ -8,6 +11,10 @@
 </template>
 
 <script>
+/**
+ * @author: anngreens
+ * CommonJS 的使用方法，可以直接通过 require 一个 json 文件并拿到 version 字段的值
+ */
 const version = require('element-ui/package.json').version // element-ui version from node_modules
 const ORIGINAL_THEME = '#409EFF' // default color
 
@@ -46,6 +53,9 @@ export default {
       if (typeof val !== 'string') return
       const themeCluster = this.getThemeCluster(val.replace('#', ''))
       const originalCluster = this.getThemeCluster(oldVal.replace('#', ''))
+      
+      console.log(themeCluster);
+      console.log(originalCluster);
 
       const getHandler = (variable, id) => {
         return () => {
@@ -97,7 +107,16 @@ export default {
       return new Promise(resolve => {
         const xhr = new XMLHttpRequest()
         xhr.onreadystatechange = () => {
+          /**
+           * @author: anngreens
+           * readyState 4	DONE	下载操作已完成。
+           * status 200 代表一个成功的请求。如果服务器响应中没有明确指定 status 码，XMLHttpRequest.status 将会默认为 200。
+           */
           if (xhr.readyState === 4 && xhr.status === 200) {
+            /**
+             * @author: anngreens
+             * 匹配CSS 文件中的 @font-face 规则块，替换为空串
+             */
             this[variable] = xhr.responseText.replace(/@font-face{[^}]+}/, '')
             resolve()
           }
@@ -109,6 +128,10 @@ export default {
 
     getThemeCluster(theme) {
       const tintColor = (color, tint) => {
+        /**
+         * @author: anngreen
+         * 十六进制颜色表示转成 rgb 表示的方法，即每两个十六进制转为一个十进制
+         */
         let red = parseInt(color.slice(0, 2), 16)
         let green = parseInt(color.slice(2, 4), 16)
         let blue = parseInt(color.slice(4, 6), 16)

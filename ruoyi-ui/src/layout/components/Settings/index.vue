@@ -31,6 +31,9 @@
 
           <div class="drawer-item">
             <span>主题颜色</span>
+            <!-- @author: anngreens
+            theme-picker 是一个 el-color-picker 组件封装的
+            -->
             <theme-picker style="float: right;height: 26px;margin: -3px 8px 0 0;" @change="themeChange" />
           </div>
         </div>
@@ -166,6 +169,10 @@ export default {
       this.sideTheme = val;
     },
     saveSetting() {
+      /**
+       * @author: anngreens
+       * 在 @/plugins/index.js 中挂载了全局模态框（直接使用 js 方法调起）
+       */
       this.$modal.loading("正在保存到本地，请稍候...");
       this.$cache.local.set(
         "layout-setting",
