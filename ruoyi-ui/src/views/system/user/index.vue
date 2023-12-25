@@ -55,6 +55,9 @@
               clearable
               style="width: 240px"
             >
+            <!-- @author: anngreens
+              dict 是一个 mixin ，在 @/utils/dict/index.js 中混入
+            -->
               <el-option
                 v-for="dict in dict.type.sys_normal_disable"
                 :key="dict.value"
@@ -455,6 +458,11 @@ export default {
   watch: {
     // 根据名称筛选部门树
     deptName(val) {
+      /**
+       * @author: anngreens
+       * el-tree 的一个方法，对树节点进行筛选操作
+       * 接收一个任意类型的参数，该参数会在 filter-node-method（对树节点进行筛选时执行的方法，返回 true 表示这个节点可以显示，返回 false 则表示这个节点会被隐藏） 中作为第一个参数
+       */
       this.$refs.tree.filter(val);
     }
   },
@@ -479,6 +487,10 @@ export default {
     /** 查询部门下拉树结构 */
     getDeptTree() {
       deptTreeSelect().then(response => {
+        /**
+         * @author: anngreens
+         * 具有一个主键 id
+         */
         this.deptOptions = response.data;
       });
     },

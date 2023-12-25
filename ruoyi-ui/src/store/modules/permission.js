@@ -1,4 +1,10 @@
 import auth from '@/plugins/auth'
+/**
+ * @author: anngreens
+ * router: 路由器实例
+ * constantRoutes: 公共路由
+ * dynamicRoutes: 动态路由（但是是直接写在代码里的）
+ */
 import router, { constantRoutes, dynamicRoutes } from '@/router'
 import { getRouters } from '@/api/menu'
 /**
@@ -95,21 +101,38 @@ function filterAsyncRouter(asyncRouterMap, lastRouter = false, type = false) {
       } else if (route.component === 'InnerLink') {
         route.component = InnerLink
       } else {
+        /**
+         * @author: anngreens
+         * 加载组件
+         */
         route.component = loadView(route.component)
       }
     }
+    /**
+     * @author: anngreens
+     * 使用一个递归，具有子路由的继续构造子路由，没有子路由的去除 route 对象的 children 和 redirect 两个键
+     */
     if (route.children != null && route.children && route.children.length) {
       route.children = filterAsyncRouter(route.children, route, type)
     } else {
       delete route['children']
       delete route['redirect']
     }
+    /**
+     * @author: anngreens
+     * 保留构造好的路由
+     */
     return true
   })
 }
 
 function filterChildren(childrenMap, lastRouter = false) {
   var children = []
+  /**
+   * @author: anngreens
+   * el: 数组中正在处理的当前元素。
+   * index: 数组中正在处理的当前元素的索引。
+   */
   childrenMap.forEach((el, index) => {
     if (el.children && el.children.length) {
       if (el.component === 'ParentView' && !lastRouter) {
@@ -149,10 +172,18 @@ export function filterDynamicRoutes(routes) {
   return res
 }
 
+/**
+ * @author: anngreens
+ * 参考 实现的一个简单（简陋）的动态路由
+ */
 export const loadView = (view) => {
   if (process.env.NODE_ENV === 'development') {
     return (resolve) => require([`@/views/${view}`], resolve)
   } else {
+    /**
+     * @author: anngreens
+     * 这里加不加 .vue 都是可以的，应该是与编译器有关
+     */
     // 使用 import 实现生产环境的路由懒加载
     return () => import(`@/views/${view}`)
   }

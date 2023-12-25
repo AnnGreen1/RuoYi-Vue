@@ -16,10 +16,10 @@ const whiteList = ['/login', '/register']
 
 router.beforeEach((to, from, next) => {
   NProgress.start()
-  if (getToken()) {
-    to.meta.title && store.dispatch('settings/setTitle', to.meta.title)
+  if (getToken()) {// @author: anngreens 如果可以从 Cookie 拿到 Token 的话
+    to.meta.title && store.dispatch('settings/setTitle', to.meta.title) // @author: anngreens 如果跳转的路由有 title 的话就把 title 保存到 vuex
     /* has token*/
-    if (to.path === '/login') {
+    if (to.path === '/login') { // @author: anngreens 如果要跳转的路由是 '/login' 话直接放行
       next({ path: '/' })
       NProgress.done()
     } else {
@@ -29,6 +29,10 @@ router.beforeEach((to, from, next) => {
        */
       if (store.getters.roles.length === 0) { // 判断是否已经获取用户信息
         isRelogin.show = true
+        /**
+         * @author: anngreens
+         * @file: @/store/modules/user.js line 54
+         */
         // 判断当前用户是否已拉取完user_info信息
         store.dispatch('GetInfo').then(() => {
           isRelogin.show = false
