@@ -85,6 +85,9 @@
 
         <el-row :gutter="10" class="mb8">
           <el-col :span="1.5">
+            <!-- @author: anngreens
+            v-hasPermi 指令在 @/directive/permission/hasPermi.js 中定义
+            -->
             <el-button
               type="primary"
               plain
@@ -136,9 +139,14 @@
               v-hasPermi="['system:user:export']"
             >导出</el-button>
           </el-col>
+          <!-- @author
+          在 main.js 中全局注册的组件 @/components/RightToolbar
+          -->
           <right-toolbar :showSearch.sync="showSearch" @queryTable="getList" :columns="columns"></right-toolbar>
         </el-row>
-
+        <!-- @author: anngreens
+        selection-change 当选择项发生变化时会触发该事件
+        -->
         <el-table v-loading="loading" :data="userList" @selection-change="handleSelectionChange">
           <el-table-column type="selection" width="50" align="center" />
           <el-table-column label="用户编号" align="center" key="userId" prop="userId" v-if="columns[0].visible" />
@@ -158,6 +166,9 @@
           </el-table-column>
           <el-table-column label="创建时间" align="center" prop="createTime" v-if="columns[6].visible" width="160">
             <template slot-scope="scope">
+              <!-- @author: anngreens
+              parseTime 是在 main.js 中挂载的全局函数
+              -->
               <span>{{ parseTime(scope.row.createTime) }}</span>
             </template>
           </el-table-column>
@@ -182,6 +193,9 @@
                 @click="handleDelete(scope.row)"
                 v-hasPermi="['system:user:remove']"
               >删除</el-button>
+              <!-- @author: anngreens
+              v-hasPermi 的 bingdings 是一个数组，当数组长度大于 1 时，代表任意一个都可以（因为自定义指令时使用了 some）
+              -->
               <el-dropdown size="mini" @command="(command) => handleCommand(command, scope.row)" v-hasPermi="['system:user:resetPwd', 'system:user:edit']">
                 <el-button size="mini" type="text" icon="el-icon-d-arrow-right">更多</el-button>
                 <el-dropdown-menu slot="dropdown">
@@ -447,6 +461,10 @@ export default {
         ],
         phonenumber: [
           {
+            /**
+             * @autjhor: anngreens
+             * 手机号码的正则校验注意下
+             */
             pattern: /^1[3|4|5|6|7|8|9][0-9]\d{8}$/,
             message: "请输入正确的手机号码",
             trigger: "blur"
@@ -506,6 +524,15 @@ export default {
     },
     // 用户状态修改
     handleStatusChange(row) {
+      /**
+       * @author: anngreens
+       * 这里的 row 也是响应式的
+       */
+      console.log(row);
+      /**
+       * @author: anngreens
+       * 这里调用了接口去更改用户状态，但是页面上的用户状态不是通过重新查数据来渲染的（是通过 el-switch 的 change 事件）
+       */
       let text = row.status === "0" ? "启用" : "停用";
       this.$modal.confirm('确认要"' + text + '""' + row.userName + '"用户吗？').then(function() {
         return changeUserStatus(row.userId, row.status);
@@ -536,6 +563,10 @@ export default {
         postIds: [],
         roleIds: []
       };
+      /**
+       * @author: anngreens
+       * 挂载全局的函数，本质还是 elementUI 表单的 resetFields 函数
+       */
       this.resetForm("form");
     },
     /** 搜索按钮操作 */
@@ -574,6 +605,10 @@ export default {
     handleAdd() {
       this.reset();
       getUser().then(response => {
+        /**
+         * @author: anngreens
+         * 准备新增用户弹窗里的下拉数据和 password 数据后展示弹窗
+         */
         this.postOptions = response.posts;
         this.roleOptions = response.roles;
         this.open = true;

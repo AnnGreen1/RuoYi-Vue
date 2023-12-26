@@ -81,6 +81,10 @@ export default {
     dataChange(data) {
       for (let item in this.columns) {
         const key = this.columns[item].key;
+        /**
+         * @author: anngreens
+         * 直接改变 props ？
+         */
         this.columns[item].visible = !data.includes(key);
       }
     },

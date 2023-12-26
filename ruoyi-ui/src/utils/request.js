@@ -125,6 +125,11 @@ export function download(url, params, filename, config) {
     responseType: 'blob',
     ...config
   }).then(async (data) => {
+    /**
+     * @author: anngreens
+     * 不是 'application/json' 就能确定是 blob ？
+     * file-saver 的 npmjs 链接：https://www.npmjs.com/package/file-saver
+     */
     const isBlob = blobValidate(data);
     if (isBlob) {
       const blob = new Blob([data])
