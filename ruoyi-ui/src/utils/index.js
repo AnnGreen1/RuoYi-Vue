@@ -210,6 +210,10 @@ export function getTime(type) {
 }
 
 /**
+ * @author: anngreens
+ * 防抖的原理是什么？怎么用？完全理解透彻了吗？
+ */
+/**
  * @param {Function} func
  * @param {number} wait
  * @param {boolean} immediate

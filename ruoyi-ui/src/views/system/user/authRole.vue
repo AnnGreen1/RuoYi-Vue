@@ -17,6 +17,9 @@
     </el-form>
 
     <h4 class="form-header h4">角色信息</h4>
+    <!-- @author: anngreens
+    前端使用 slice 进行分页展示？
+    -->
     <el-table v-loading="loading" :row-key="getRowKey" @row-click="clickRow" ref="table" @selection-change="handleSelectionChange" :data="roles.slice((pageNum-1)*pageSize,pageNum*pageSize)">
       <el-table-column label="序号" type="index" align="center">
         <template slot-scope="scope">
@@ -71,12 +74,17 @@ export default {
     if (userId) {
       this.loading = true;
       getAuthRole(userId).then((response) => {
-        this.form = response.user;
-        this.roles = response.roles;
+        this.form = response.user; // @author: anngreens 用户信息
+        this.roles = response.roles; // @author: anngreens 角色信息（一个数组）
         this.total = this.roles.length;
         this.$nextTick(() => {
           this.roles.forEach((row) => {
             if (row.flag) {
+              /**
+               * @author: anngreens
+               * 用于多选表格，切换某一行的选中状态，如果使用了第二个参数，则是设置这一行选中与否（selected 为 true 则选中）
+               * 初始化选中状态
+               */
               this.$refs.table.toggleRowSelection(row);
             }
           });
@@ -110,6 +118,10 @@ export default {
     /** 关闭按钮 */
     close() {
       const obj = { path: "/system/user" };
+      /**
+       * @author: anngreens
+       * @/plugins/tab.js line 26
+       */
       this.$tab.closeOpenPage(obj);
     },
   },

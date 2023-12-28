@@ -55,6 +55,10 @@
 
 <script>
 import store from "@/store";
+/**
+ * @author: anngreens
+ * VueCropper 文档极速入门 https://github.xyxiao.cn/vue-cropper/
+ */
 import { VueCropper } from "vue-cropper";
 import { uploadAvatar } from "@/api/system/user";
 import { debounce } from '@/utils'
@@ -126,16 +130,36 @@ export default {
       if (file.type.indexOf("image/") == -1) {
         this.$modal.msgError("文件格式错误，请上传图片类型,如：JPG，PNG后缀的文件。");
       } else {
+        /**
+         * @anthor: anngreens
+         * FileReader 的使用
+         */
         const reader = new FileReader();
+        /**
+         * @author: anngreens
+         * 读取指定的 Blob 或 File 对象。
+         */
         reader.readAsDataURL(file);
+        /**
+         * @author: anngreens
+         * mdn 上没有说有这个方法，但是应该是读取完成的钩子函数
+         */
         reader.onload = () => {
           this.options.img = reader.result;
         };
       }
     },
+    /**
+     * @author: anngreens
+     * 手动上传
+     */
     // 上传图片
     uploadImg() {
       this.$refs.cropper.getCropBlob(data => {
+        /**
+         * @author: anngreens
+         * 常见的上传文件方法，但是还是不太理解（根本就没看过 JavaScript 关于文件流的东西）
+         */
         let formData = new FormData();
         formData.append("avatarfile", data);
         uploadAvatar(formData).then(response => {
