@@ -517,6 +517,10 @@ export default {
             let checkedKeys = res.checkedKeys
             checkedKeys.forEach((v) => {
                 this.$nextTick(()=>{
+                  /**
+                   * @author: anngreens
+                   * 通过 key / data 设置某个节点的勾选状态，使用此方法必须设置 node-key 属性
+                   */
                     this.$refs.menu.setChecked(v, true ,false);
                 })
             })
