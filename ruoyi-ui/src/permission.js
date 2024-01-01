@@ -48,8 +48,8 @@ router.beforeEach((to, from, next) => {
              * 经过一系列操作，添加动态路由到路由器
              * 这和 @/store/modules/permission.js line 48 有什么区别？
              */
-            console.log("@/permission.js addRoutes()");
-            console.log(accessRoutes);
+            // console.log("@/permission.js addRoutes()");
+            // console.log(accessRoutes);
             router.addRoutes(accessRoutes) // 动态添加可访问路由表
             next({ ...to, replace: true }) // hack方法 确保addRoutes已完成  放行-->路由跳转
           })

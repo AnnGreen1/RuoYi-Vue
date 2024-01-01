@@ -18,10 +18,18 @@
 </template>
 
 <script>
+/**
+ * @author: anngreens
+ * icons 是文件名字符串的数组
+ */
 import icons from './requireIcons'
 export default {
   name: 'IconSelect',
   props: {
+    /**
+     * @author: anngreens
+     * 用来默认选中某个图标
+     */
     activeIcon: {
       type: String
     }
@@ -41,7 +49,7 @@ export default {
     },
     selectedIcon(name) {
       this.$emit('selected', name)
-      document.body.click()
+      document.body.click() // @author: anngreens 关闭 el-popover
     },
     reset() {
       this.name = ''

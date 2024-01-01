@@ -67,6 +67,10 @@
       <el-table-column prop="component" label="组件路径" :show-overflow-tooltip="true"></el-table-column>
       <el-table-column prop="status" label="状态" width="80">
         <template slot-scope="scope">
+          <!-- @author: anngreens
+          dict-tag 是在 main.js 中注册的全局组件（基于 el-tag 封装）
+          status 是枚举，给组件传两个 props ，一个数据字典，一个枚举，使用枚举从数据字典中匹配
+          -->
           <dict-tag :options="dict.type.sys_normal_disable" :value="scope.row.status"/>
         </template>
       </el-table-column>
@@ -128,6 +132,11 @@
           </el-col>
           <el-col :span="24" v-if="form.menuType != 'F'">
             <el-form-item label="菜单图标" prop="icon">
+              <!-- @author: anngreens
+              show	显示时触发
+              trigger	触发方式 click
+              popover 初始化时通过 ref 调用 IconSelect 的 reset 函数
+              -->
               <el-popover
                 placement="bottom-start"
                 width="460"
@@ -142,6 +151,9 @@
                     :icon-class="form.icon"
                     style="width: 25px;"
                   />
+                  <!-- @author: anngreens
+                  默认有个搜索图标
+                  -->
                   <i v-else slot="prefix" class="el-icon-search el-input__icon" />
                 </el-input>
               </el-popover>
@@ -229,6 +241,9 @@
               </el-radio-group>
             </el-form-item>
           </el-col>
+          <!-- @author: anngreens
+          显示状态和心动中自己理解的不同，心动中不显示后端就直接不会查询到这个路由返回
+          -->
           <el-col :span="12" v-if="form.menuType != 'F'">
             <el-form-item prop="visible">
               <span slot="label">
@@ -334,7 +349,13 @@ export default {
     getList() {
       this.loading = true;
       listMenu(this.queryParams).then(response => {
+        /**
+         * @author: anngreens
+         * @file: @/utils/ruoyi.js line 160
+         */
         this.menuList = this.handleTree(response.data, "menuId");
+        console.log('menuList');
+        console.log(this.menuList);
         this.loading = false;
       });
     },
@@ -402,6 +423,10 @@ export default {
     },
     /** 展开/折叠操作 */
     toggleExpandAll() {
+      /**
+       * @author: anngreens
+       * 表格展开折叠操作是通过 v-if 重新渲染实现的
+       */
       this.refreshTable = false;
       this.isExpandAll = !this.isExpandAll;
       this.$nextTick(() => {

@@ -9,6 +9,9 @@
           :class="item.raw.cssClass"
           >{{ item.label + " " }}</span
         >
+        <!-- @author: anngreens
+        disable-transitions	是否禁用渐变动画
+        -->
         <el-tag
           v-else
           :disable-transitions="true"

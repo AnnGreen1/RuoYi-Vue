@@ -8,7 +8,7 @@ import store from '@/store'
 export default {
   // @author: anngreens 被绑定元素插入父节点时调用 (仅保证父节点存在，但不一定已被插入文档中)。
   inserted(el, binding, vnode) {
-    console.log(el);
+    // console.log(el);
     const { value } = binding
     const all_permission = "*:*:*";
     const permissions = store.getters && store.getters.permissions
