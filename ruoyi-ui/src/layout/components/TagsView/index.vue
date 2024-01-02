@@ -1,6 +1,16 @@
 <template>
   <div id="tags-view-container" class="tags-view-container">
     <scroll-pane ref="scrollPane" class="tags-view-wrapper" @scroll="handleScroll">
+      <!-- @author: anngreens
+      鼠标按钮修饰符
+      2.2.0 新增
+      .left
+      .right
+      .middle
+
+      contextmenu 事件会在用户尝试打开上下文菜单时被触发。该事件通常在鼠标点击右键或者按下键盘上的菜单键时被触发，如果使用菜单键，该上下文菜单会被展示 到所聚焦元素的左下角，但是如果该元素是一棵 DOM 树的话，上下文菜单便会展示在当前这一行的左下角。
+      https://developer.mozilla.org/zh-CN/docs/Web/API/Element/contextmenu_event
+      -->
       <router-link
         v-for="tag in visitedViews"
         ref="tag"
@@ -212,6 +222,10 @@ export default {
     },
     openMenu(tag, e) {
       const menuMinWidth = 105
+      /**
+       * @author: anngreens
+       * Element.getBoundingClientRect() 方法返回一个 DOMRect 对象，其提供了元素的大小及其相对于视口的位置。
+       */
       const offsetLeft = this.$el.getBoundingClientRect().left // container margin left
       const offsetWidth = this.$el.offsetWidth // container width
       const maxLeft = offsetWidth - menuMinWidth // left boundary

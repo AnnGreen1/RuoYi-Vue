@@ -113,6 +113,10 @@
       <el-table-column label="字典名称" align="center" prop="dictName" :show-overflow-tooltip="true" />
       <el-table-column label="字典类型" align="center" :show-overflow-tooltip="true">
         <template slot-scope="scope">
+          <!--
+            @author: anngreens
+            router-link 是如何实现的，其内部是如何封装的？想要新标签页打开一个路由能使用 router-link 进行改造后实现吗？
+            -->
           <router-link :to="'/system/dict-data/index/' + scope.row.dictId" class="link-type">
             <span>{{ scope.row.dictType }}</span>
           </router-link>
@@ -292,6 +296,10 @@ export default {
     /** 修改按钮操作 */
     handleUpdate(row) {
       this.reset();
+      /**
+       * @author: anngreens
+       * 点击上方按钮编辑和点击表格中每一行的编辑按钮还是有区别的，点击表格中的编辑按钮可以拿到更多的信息（可能就不需要再调用一次接口了，不过这里都根据 id 又查了一次信息）
+       */
       const dictId = row.dictId || this.ids
       getType(dictId).then(response => {
         this.form = response.data;

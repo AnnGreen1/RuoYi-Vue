@@ -252,6 +252,12 @@ export default {
     },
     // 操作日志类型字典翻译
     typeFormat(row, column) {
+      /**
+       * @author: anngreens
+       * 在 @/utils/ruoyi.js line 72 定义，在 main.js 挂载的一个全局方法，回显数据字典
+       */
+      console.log(this.dict.type.sys_oper_type);
+      console.log(row.businessType);
       return this.selectDictLabel(this.dict.type.sys_oper_type, row.businessType);
     },
     /** 搜索按钮操作 */
@@ -264,6 +270,15 @@ export default {
       this.dateRange = [];
       this.resetForm("queryForm");
       this.queryParams.pageNum = 1;
+      /**
+       * @author: anngreens
+       * Table Methods sort
+       * 手动对 Table 进行排序。
+       * 参数prop属性指定排序列，order指定排序顺序。	
+       * prop: string, order: string
+       * 
+       * 重置也包括了排序规则的重置（就是需要通过 ref 手动调用暴露的方法重新进行排序）
+       */
       this.$refs.tables.sort(this.defaultSort.prop, this.defaultSort.order)
     },
     /** 多选框选中数据 */
@@ -272,6 +287,11 @@ export default {
       this.multiple = !selection.length
     },
     /** 排序触发事件 */
+    /**
+     * @author: anngreens
+     * sort-change	当表格的排序条件发生变化的时候会触发该事件	{ column, prop, order }
+     * 排序是需要添加参数调接口的
+     */
     handleSortChange(column, prop, order) {
       this.queryParams.orderByColumn = column.prop;
       this.queryParams.isAsc = column.order;

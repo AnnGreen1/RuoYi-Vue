@@ -18,6 +18,11 @@
 </template>
 
 <script>
+/**
+ * @author: anngreens
+ * 一个富文本编辑器（之前用过 wangEditor）
+ * https://quilljs.com/
+ */
 import Quill from "quill";
 import "quill/dist/quill.core.css";
 import "quill/dist/quill.snow.css";
