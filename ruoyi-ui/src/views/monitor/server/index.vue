@@ -4,6 +4,10 @@
       <el-col :span="12" class="card-box">
         <el-card>
           <div slot="header"><span><i class="el-icon-cpu"></i> CPU</span></div>
+          <!-- @author: anngreens
+          还可以这样写？虽然用的不是 el-table 组件，但是在一个普通 div上使用 el-table 的类名？而且也能达到样式效果？
+          el-table el-table--enable-row-hover el-table--medium el-table__cell is-leaf cell 等
+          --->
           <div class="el-table el-table--enable-row-hover el-table--medium">
             <table cellspacing="0" style="width: 100%;">
               <thead>

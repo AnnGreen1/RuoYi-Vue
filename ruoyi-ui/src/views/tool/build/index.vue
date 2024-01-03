@@ -3,6 +3,9 @@
     <div class="left-board">
       <div class="logo-wrapper">
         <div class="logo">
+          <!-- @author: anngreens
+          注意这里绑定 src 的写法，首先 import 一个图片，可以直接变成一个响应式数据，之后可以直接 v-bind
+            -->
           <img :src="logo" alt="logo"> Form Generator
         </div>
       </div>
@@ -136,8 +139,23 @@
 </template>
 
 <script>
+/**
+ * @author: anngreens
+ * vuedraggable 官方仓库：https://github.com/SortableJS/Vue.Draggable
+ * 一个拖拽效果的实现方案
+ */
 import draggable from 'vuedraggable'
+/**
+ * @author: anngreens
+ * https://www.npmjs.com/package/js-beautify
+ * 一个 js 格式化工具（解决方案）（VSCode 也内置使用了这个方案）
+ */
 import beautifier from 'js-beautify'
+/**
+ * @author: anngreens
+ * https://clipboardjs.com/
+ * 一个剪切板管理工具
+ */
 import ClipboardJS from 'clipboard'
 import render from '@/utils/generator/render'
 import RightPanel from './RightPanel'
@@ -183,9 +201,15 @@ export default {
     }
   },
   created() {
+    /**
+     * @author: anngreens
+     * HTMLElement：drop 事件 https://developer.mozilla.org/zh-CN/docs/Web/API/HTMLElement/drop_event
+     */
     // 防止 firefox 下 拖拽 会新打卡一个选项卡
     document.body.ondrop = event => {
+      // @author: anngreens 阻止默认的点击事件执行
       event.preventDefault()
+      // @author: anngreens 阻止捕获和冒泡阶段中当前事件的进一步传播。但是，它不能防止任何默认行为的发生；
       event.stopPropagation()
     }
   },
