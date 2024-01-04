@@ -84,9 +84,15 @@
       <el-table-column type="selection" align="center" width="55"></el-table-column>
       <el-table-column label="序号" type="index" width="50" align="center">
         <template slot-scope="scope">
+          <!-- @author: anngreens
+          自然而然能想到的序号的生成方法
+            -->
           <span>{{(queryParams.pageNum - 1) * queryParams.pageSize + scope.$index + 1}}</span>
         </template>
       </el-table-column>
+      <!-- @author: anngreens
+        表格里开启 show-overflow-tooltip ，这里的tooltip是怎么实现的？需要 v-if 判断，之后还要手动截取这么麻烦吗？
+      --->
       <el-table-column
         label="表名称"
         align="center"
@@ -160,6 +166,10 @@
     <!-- 预览界面 -->
     <el-dialog :title="preview.title" :visible.sync="preview.open" width="80%" top="5vh" append-to-body class="scrollbar">
       <el-tabs v-model="preview.activeName">
+        <!--
+        @author: anngreens
+        label 和 name 从 key 中截取到的文件名
+        -->
         <el-tab-pane
           v-for="(value, key) in preview.data"
           :label="key.substring(key.lastIndexOf('/')+1,key.indexOf('.vm'))"
@@ -178,6 +188,11 @@
 <script>
 import { listTable, previewTable, delTable, genCode, synchDb } from "@/api/tool/gen";
 import importTable from "./importTable";
+/**
+ * @author: anngreens
+ * 一个代码高亮解决方案
+ * https://highlightjs.org/
+ */
 import hljs from "highlight.js/lib/highlight";
 import "highlight.js/styles/github-gist.css";
 hljs.registerLanguage("java", require("highlight.js/lib/languages/java"));
@@ -257,6 +272,7 @@ export default {
     },
     /** 生成代码操作 */
     handleGenTable(row) {
+      console.log(row);
       const tableNames = row.tableName || this.tableNames;
       if (tableNames == "") {
         this.$modal.msgError("请选择要生成的数据");
@@ -299,9 +315,14 @@ export default {
     },
     /** 高亮显示 */
     highlightedCode(code, key) {
-      const vmName = key.substring(key.lastIndexOf("/") + 1, key.indexOf(".vm"));
-      var language = vmName.substring(vmName.indexOf(".") + 1, vmName.length);
+      const vmName = key.substring(key.lastIndexOf("/") + 1, key.indexOf(".vm")); // @author: anngreens 拿到文件名
+      var language = vmName.substring(vmName.indexOf(".") + 1, vmName.length); // @author: anngreens 拿到文件后缀格式
       const result = hljs.highlight(language, code || "", true);
+      console.log(result.value || '&nbsp;');
+      /**
+       * @author: anngreens
+       * 经过 highlight.js 处理后的代码是安全的（及时使用 v-html 也是纯文本）为什么？观察处理后的结果，可以发现 highlight.js 给每段代码添加了类名，可能和这有关（可能不仅仅控制了样式）。
+       */
       return result.value || '&nbsp;';
     },
     /** 复制代码成功 */
