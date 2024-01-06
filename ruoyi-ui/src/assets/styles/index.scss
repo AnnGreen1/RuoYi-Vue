@@ -9,6 +9,11 @@ body {
   height: 100%;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
+  /**
+  * @author: anngreens
+  * 这是什么属性？
+  * https://developer.mozilla.org/zh-CN/docs/Web/CSS/text-rendering
+  */
   text-rendering: optimizeLegibility;
   font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
 }

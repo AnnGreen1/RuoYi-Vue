@@ -19,6 +19,10 @@ $--border-color-lighter: #e6ebf5;
 
 $--table-border: 1px solid #dfe6ec;
 
+/*
+* @author: anngreens
+* '~' 是如何得到支持的？SCSS文档有提到吗？是编译器的支持吗？
+*/
 /* icon font path, required */
 $--font-path: '~element-ui/lib/theme-chalk/fonts';
 

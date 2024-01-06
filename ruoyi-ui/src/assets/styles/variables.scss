@@ -38,6 +38,10 @@ $base-sub-menu-hover:#001528;
 
 $base-sidebar-width: 200px;
 
+/***
+@author: anngreens
+这是什么语法？（下面有注释）
+*/
 // the :export directive is the magic sauce for webpack
 // https://www.bluematador.com/blog/how-to-share-variables-between-js-and-sass
 :export {

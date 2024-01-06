@@ -39,7 +39,10 @@
   $transparent-border-style: $width solid transparent;
   height: 0;
   width: 0;
-
+  /**
+  * @author: anngreens
+  * SCSS 的 @if @else @else if ，又是从来没用过的。
+  */
   @if $direction==up {
     border-bottom: $color-border-style;
     border-left: $transparent-border-style;

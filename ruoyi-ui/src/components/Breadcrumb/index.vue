@@ -35,8 +35,10 @@ export default {
     getBreadcrumb() {
       /**
        * @author: anngreens
-       * 一个路由匹配到的所有路由记录会暴露为 $route 对象 (还有在导航守卫中的路由对象) 的 $route.matched 数组。
+       * $route.matched 一个数组，包含当前路由的所有嵌套路径片段的路由记录 。路由记录就是 routes 配置数组中的对象副本 (还有在 children 数组)。
        */
+      console.log('components/Breadcrumb/index.vue line 41');
+      console.log(this.$route.matched);
       // only show routes with meta.title
       let matched = this.$route.matched.filter(item => item.meta && item.meta.title)
       const first = matched[0]

@@ -267,6 +267,10 @@
 /* 拖拽列样式 */
 .sortable-ghost{
 	opacity: .8;
+	/**
+	*@author: anngreens
+	* !important 之前不一定需要有空格隔开？
+	*/
 	color: #fff!important;
 	background: #42b983!important;
 }
