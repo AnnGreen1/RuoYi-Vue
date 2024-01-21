@@ -322,6 +322,9 @@ export default {
       /**
        * @author: anngreens
        * 经过 highlight.js 处理后的代码是安全的（及时使用 v-html 也是纯文本）为什么？观察处理后的结果，可以发现 highlight.js 给每段代码添加了类名，可能和这有关（可能不仅仅控制了样式）。
+       * Vue 官网（https://v2.cn.vuejs.org/v2/guide/syntax.html#%E5%8E%9F%E5%A7%8B-HTML）提到，
+       * 不能使用 v-html 来复合局部模板，因为 Vue 不是基于字符串的模板引擎。
+       * 那这里是怎么回事？
        */
       return result.value || '&nbsp;';
     },

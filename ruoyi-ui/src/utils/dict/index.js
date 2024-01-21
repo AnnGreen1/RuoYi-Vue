@@ -1,5 +1,5 @@
 import Dict from './Dict'
-import { mergeOptions } from './DictOptions'
+import { mergeOptions } from './DictOptions' // @author: anngreens 这是一个对象
 
 export default function(Vue, options) {
   mergeOptions(options)

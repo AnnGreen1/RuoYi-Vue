@@ -36,7 +36,7 @@ import DictTag from '@/components/DictTag'
 // 头部标签组件
 import VueMeta from 'vue-meta'
 // 字典数据组件
-import DictData from '@/components/DictData'
+import DictData from '@/components/DictData' // @author: anngreens 这是一个函数
 
 // 全局方法挂载
 Vue.prototype.getDicts = getDicts

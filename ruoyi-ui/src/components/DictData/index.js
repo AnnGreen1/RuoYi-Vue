@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import store from '@/store'
-import DataDict from '@/utils/dict'
+import DataDict from '@/utils/dict' // @author： anngreens 这是一个函数
 import { getDicts as getDicts } from '@/api/system/dict/data'
 
 function searchDictByKey(dict, key) {
@@ -19,6 +19,14 @@ function searchDictByKey(dict, key) {
 }
 
 function install() {
+  /**
+   * @author: anngreens
+   * Vue.use() 用来安装 Vue.js 插件。如果插件是一个对象，必须提供 install 方法。如果插件是一个函数，它会被作为 install 方法。install 方法调用时，会将 Vue 作为参数传入。
+   * 可以传入一个可选的选项对象
+   * such as :
+   * Vue.use(MyPlugin, { someOption: true })
+   * 插件在这里使用
+   */
   Vue.use(DataDict, {
     metas: {
       '*': {
