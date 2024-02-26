@@ -45,7 +45,7 @@ import { getToken } from "@/utils/auth";
 export default {
   name: "FileUpload",
   props: {
-    // 值
+    // 值 @author: anngreens 文件列表
     value: [String, Object, Array],
     // 数量限制
     limit: {
@@ -115,6 +115,10 @@ export default {
     handleBeforeUpload(file) {
       // 校检文件类型
       if (this.fileType) {
+        /**
+         * @author: anngreens
+         * 直接通过 split 分割字符串获取文件类型（文件后缀名）
+         */
         const fileName = file.name.split('.');
         const fileExt = fileName[fileName.length - 1];
         const isTypeOk = this.fileType.indexOf(fileExt) >= 0;
@@ -150,7 +154,7 @@ export default {
         this.uploadList.push({ name: res.fileName, url: res.fileName });
         this.uploadedSuccessfully();
       } else {
-        this.number--;
+        this.number--;// @author: anngreens number 是上传前加1的，如果没有真正上传成功就再减掉
         this.$modal.closeLoading();
         this.$modal.msgError(res.msg);
         this.$refs.fileUpload.handleRemove(file);
@@ -174,6 +178,10 @@ export default {
     },
     // 获取文件名称
     getFileName(name) {
+      /**
+       * @author: anngreens
+       * "/" 符号后的全部字符就是文件名
+       */
       if (name.lastIndexOf("/") > -1) {
         return name.slice(name.lastIndexOf("/") + 1);
       } else {

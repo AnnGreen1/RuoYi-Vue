@@ -4,6 +4,11 @@ import router from '@/router';
 export default {
   // 刷新当前tab页签
   refreshPage(obj) {
+    /**
+     * @author: anngreens
+     * router.currentRoute
+     * https://v3.router.vuejs.org/zh/api/#router-currentroute
+     */
     const { path, query, matched } = router.currentRoute;
     if (obj === undefined) {
       matched.forEach((m) => {
@@ -16,6 +21,7 @@ export default {
     }
     return store.dispatch('tagsView/delCachedView', obj).then(() => {
       const { path, query } = obj
+      console.log("@/plugins/tab.js line 24", path);
       router.replace({
         path: '/redirect' + path,
         query: query

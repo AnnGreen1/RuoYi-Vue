@@ -118,6 +118,7 @@ export default {
         type: 'warning'
       }).then(() => {
         /**
+         * @author: anngreens
          * LogOut 是一个 action ，在 @/store/modules/user.js 中
          */
         this.$store.dispatch('LogOut').then(() => {

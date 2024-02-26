@@ -1,18 +1,30 @@
 <template>
+  <!--
+  @author: anngreens
+  select	菜单激活回调	
+  -->
   <el-menu
     :default-active="activeMenu"
     mode="horizontal"
     @select="handleSelect"
   >
     <template v-for="(item, index) in topMenus">
-      <el-menu-item :style="{'--theme': theme}" :index="item.path" :key="index" v-if="index < visibleNumber"
+      <el-menu-item
+        :style="{ '--theme': theme }"
+        :index="item.path"
+        :key="index"
+        v-if="index < visibleNumber"
         ><svg-icon :icon-class="item.meta.icon" />
         {{ item.meta.title }}</el-menu-item
       >
     </template>
 
     <!-- 顶部菜单超出数量折叠 -->
-    <el-submenu :style="{'--theme': theme}" index="more" v-if="topMenus.length > visibleNumber">
+    <el-submenu
+      :style="{ '--theme': theme }"
+      index="more"
+      v-if="topMenus.length > visibleNumber"
+    >
       <template slot="title">更多菜单</template>
       <template v-for="(item, index) in topMenus">
         <el-menu-item
@@ -31,7 +43,7 @@
 import { constantRoutes } from "@/router";
 
 // 隐藏侧边栏路由
-const hideList = ['/index', '/user/profile'];
+const hideList = ["/index", "/user/profile"];
 
 export default {
   data() {
@@ -39,7 +51,7 @@ export default {
       // 顶部栏初始数
       visibleNumber: 5,
       // 当前激活菜单的 index
-      currentIndex: undefined
+      currentIndex: undefined,
     };
   },
   computed: {
@@ -53,9 +65,9 @@ export default {
         if (menu.hidden !== true) {
           // 兼容顶部栏一级菜单内部跳转
           if (menu.path === "/") {
-              topMenus.push(menu.children[0]);
+            topMenus.push(menu.children[0]);
           } else {
-              topMenus.push(menu);
+            topMenus.push(menu);
           }
         }
       });
@@ -71,11 +83,12 @@ export default {
       this.routers.map((router) => {
         for (var item in router.children) {
           if (router.children[item].parentPath === undefined) {
-            if(router.path === "/") {
+            if (router.path === "/") {
               router.children[item].path = "/" + router.children[item].path;
             } else {
-              if(!this.ishttp(router.children[item].path)) {
-                router.children[item].path = router.path + "/" + router.children[item].path;
+              if (!this.ishttp(router.children[item].path)) {
+                router.children[item].path =
+                  router.path + "/" + router.children[item].path;
               }
             }
             router.children[item].parentPath = router.path;
@@ -89,25 +102,29 @@ export default {
     activeMenu() {
       const path = this.$route.path;
       let activePath = path;
-      if (path !== undefined && path.lastIndexOf("/") > 0 && hideList.indexOf(path) === -1) {
+      if (
+        path !== undefined &&
+        path.lastIndexOf("/") > 0 &&
+        hideList.indexOf(path) === -1
+      ) {
         const tmpPath = path.substring(1, path.length);
         activePath = "/" + tmpPath.substring(0, tmpPath.indexOf("/"));
         if (!this.$route.meta.link) {
-          this.$store.dispatch('app/toggleSideBarHide', false);
+          this.$store.dispatch("app/toggleSideBarHide", false);
         }
-      } else if(!this.$route.children) {
+      } else if (!this.$route.children) {
         activePath = path;
-        this.$store.dispatch('app/toggleSideBarHide', true);
+        this.$store.dispatch("app/toggleSideBarHide", true);
       }
       this.activeRoutes(activePath);
       return activePath;
     },
   },
   beforeMount() {
-    window.addEventListener('resize', this.setVisibleNumber)
+    window.addEventListener("resize", this.setVisibleNumber);
   },
   beforeDestroy() {
-    window.removeEventListener('resize', this.setVisibleNumber)
+    window.removeEventListener("resize", this.setVisibleNumber);
   },
   mounted() {
     this.setVisibleNumber();
@@ -115,30 +132,36 @@ export default {
   methods: {
     // 根据宽度计算设置显示栏数
     setVisibleNumber() {
+      /**
+       * @author: anngreens
+       * https://developer.mozilla.org/zh-CN/docs/Web/API/Element/getBoundingClientRect
+       * Element.getBoundingClientRect() 方法返回一个 DOMRect 对象，其提供了元素的大小及其相对于视口的位置。
+       */
       const width = document.body.getBoundingClientRect().width / 3;
       this.visibleNumber = parseInt(width / 85);
     },
     // 菜单选择事件
+    // @author: anngreens key: 选中菜单项的 index, keyPath: 选中菜单项的 index path
     handleSelect(key, keyPath) {
       this.currentIndex = key;
-      const route = this.routers.find(item => item.path === key);
+      const route = this.routers.find((item) => item.path === key);
       if (this.ishttp(key)) {
         // http(s):// 路径新窗口打开
         window.open(key, "_blank");
       } else if (!route || !route.children) {
         // 没有子路由路径内部打开
-        const routeMenu = this.childrenMenus.find(item => item.path === key);
+        const routeMenu = this.childrenMenus.find((item) => item.path === key);
         if (routeMenu && routeMenu.query) {
           let query = JSON.parse(routeMenu.query);
           this.$router.push({ path: key, query: query });
         } else {
           this.$router.push({ path: key });
         }
-        this.$store.dispatch('app/toggleSideBarHide', true);
+        this.$store.dispatch("app/toggleSideBarHide", true);
       } else {
         // 显示左侧联动菜单
         this.activeRoutes(key);
-        this.$store.dispatch('app/toggleSideBarHide', false);
+        this.$store.dispatch("app/toggleSideBarHide", false);
       }
     },
     // 当前激活的路由
@@ -151,15 +174,15 @@ export default {
           }
         });
       }
-      if(routes.length > 0) {
+      if (routes.length > 0) {
         this.$store.commit("SET_SIDEBAR_ROUTERS", routes);
       } else {
-        this.$store.dispatch('app/toggleSideBarHide', true);
+        this.$store.dispatch("app/toggleSideBarHide", true);
       }
     },
     ishttp(url) {
-      return url.indexOf('http://') !== -1 || url.indexOf('https://') !== -1
-    }
+      return url.indexOf("http://") !== -1 || url.indexOf("https://") !== -1;
+    },
   },
 };
 </script>
@@ -174,8 +197,9 @@ export default {
   margin: 0 10px !important;
 }
 
-.topmenu-container.el-menu--horizontal > .el-menu-item.is-active, .el-menu--horizontal > .el-submenu.is-active .el-submenu__title {
-  border-bottom: 2px solid #{'var(--theme)'} !important;
+.topmenu-container.el-menu--horizontal > .el-menu-item.is-active,
+.el-menu--horizontal > .el-submenu.is-active .el-submenu__title {
+  border-bottom: 2px solid #{"var(--theme)"} !important;
   color: #303133;
 }
 

@@ -5,7 +5,8 @@
 
 export default {
   bind(el, binding, vnode, oldVnode) {
-    const value = binding.value
+    console.log(el);
+    const value = binding.value // @author: anngreens 没有参数默认为 undefined
     if (value == false) return
     // 获取拖拽内容头部
     const dialogHeaderEl = el.querySelector('.el-dialog__header');

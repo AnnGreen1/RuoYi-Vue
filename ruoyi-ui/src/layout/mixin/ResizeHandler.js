@@ -32,7 +32,7 @@ export default {
       return rect.width - 1 < WIDTH
     },
     $_resizeHandler() {
-      if (!document.hidden) {
+      if (!document.hidden) {// @author: anngreens Document.hidden （只读属性）返回布尔值，表示页面是（true）否（false）隐藏。
         const isMobile = this.$_isMobile()
         store.dispatch('app/toggleDevice', isMobile ? 'mobile' : 'desktop')
 

@@ -28,8 +28,27 @@ import Layout from '@/layout'
   }
  */
 
+const devRoutes = [
+  {
+    path: "/dev/directive/dialogDrag",
+    component: () => import("@/views/dev/directive/dialogDrag.vue")
+  },
+  {
+    path: "/dev/directive/dialogDragHeight",
+    component: () => import("@/views/dev/directive/dialogDragHeight.vue")
+  },
+  {
+    path: "/dev/directive/dialogDragHeight",
+    component: () => import("@/views/dev/directive/dialogDragHeight.vue")
+  },
+  {
+    path: "/dev/directive/clipboard",
+    component: () => import("@/views/dev/directive/clipboard.vue")
+  }
+]
 // 公共路由
 export const constantRoutes = [
+  ...devRoutes,
   {
     path: '/redirect',
     component: Layout,
