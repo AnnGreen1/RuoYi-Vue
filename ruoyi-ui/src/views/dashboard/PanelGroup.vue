@@ -56,6 +56,9 @@
 </template>
 
 <script>
+/**
+ * https://www.npmjs.com/package/vue-count-to
+ */
 import CountTo from 'vue-count-to'
 
 export default {

@@ -52,6 +52,10 @@ function install() {
   })
 }
 
+/**
+ * @author: anngreens
+ * 导出一个对象，并且键值都是 install ，即导出一个对象，这个对象有一个 install 属性，这个属性是一个 install 函数
+ */
 export default {
   install,
 }

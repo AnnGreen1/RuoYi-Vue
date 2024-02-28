@@ -44,6 +44,14 @@ const devRoutes = [
   {
     path: "/dev/directive/clipboard",
     component: () => import("@/views/dev/directive/clipboard.vue")
+  },
+  {
+    path: "/dev/components/icons",
+    component: () => import("@/views/components/icons/index.vue")
+  },
+  {
+    path: "/dev/indexv1",
+    component: () => import("@/views/index_v1.vue")
   }
 ]
 // 公共路由
